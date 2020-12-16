@@ -1,0 +1,9 @@
+kubectl create configmap nginx-config   \
+--from-literal=(alias)=(value)          \
+qhidbqdn \
+
+
+#   volumes:
+#   -name: nginx-volumes
+#   persistentVolumeClaim:
+#     claimName: pv-hostpath
