@@ -13,14 +13,13 @@ RUN set -x && \
     apk add --update sudo && \
     rm  -rf /tmp/* /var/cache/apk/*
 
-RUN rm -f /etc/nginx/conf.d/default.conf
+RUN rm -f /etc/nginx/nginx.conf
 COPY srcs/services.sh /
 COPY srcs/nginx-entrypoint.sh /
 COPY srcs/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY srcs/index.html /var/www/index.html
-COPY srcs/default.conf /etc/nginx/conf.d/default.conf
+COPY srcs/nginx.conf /etc/nginx/nginx.conf
 
 RUN chmod +x nginx-entrypoint.sh
-
 EXPOSE 80 443 22
 ENTRYPOINT [ "/nginx-entrypoint.sh" ]

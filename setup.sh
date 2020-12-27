@@ -36,7 +36,6 @@ if ! command -v minikube &> /dev/null
 then
 	brew install minikube
 	minikube addons enable dashboard
-	minikube addons enable ingress
 	minikube addons enable metrics-server
 fi
 
@@ -53,10 +52,8 @@ fi
 kubectl config use-context minikube
 eval $(minikube docker-env)
 
-if ! command docker images | grep nginx | grep ael-ghem &> /dev/null
-then
+	docker image rm -f nginx:ael-ghem
 	docker build -t nginx:ael-ghem ./srcs/nginx/.
-fi
 
 # ----------------------- creating deployements ----------------------- 
 	#	kubectl run nginx --image=nginx:ael-ghem --po0rt=8080 --image-pull-policy=Never

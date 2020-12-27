@@ -11,7 +11,10 @@ fi
 #setting up nginx webserver user permissions to directories
 	chown -R www:www /var/lib/nginx
 	chown -R www:www /var/www
+#setting up ssh server user and permissions
 	echo "admin:password"|chpasswd
+	RUN adduser -D admin \
+        && echo "%admin ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/admin
 
 # generate the host keys with the default key file path,
 	ssh-keygen -A
@@ -32,4 +35,4 @@ if [ ! -d "/run/openrc/" ]; then
   mkdir -p /run/openrc/
   touch /run/openrc/softlevel
 fi
-sh services.sh
+sudo sh services.sh

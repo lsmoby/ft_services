@@ -1,8 +1,5 @@
-openrc
-openrc reboot
-rc-status
-rc-update add sshd
-rc-service sshd start
-sshd -D
-rc-service nginx start
+rc-update -q add sshd
+/usr/sbin/sshd -D
+nginx -t
+nginx
 nginx -g "daemon off;"
