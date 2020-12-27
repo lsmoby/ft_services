@@ -2,5 +2,7 @@ openrc
 openrc reboot
 rc-status
 rc-update add sshd
+rc-service sshd start
+sshd -D
 rc-service nginx start
-/usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
+nginx -g "daemon off;"

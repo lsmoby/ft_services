@@ -3,3 +3,5 @@
 #   -name: nginx-volumes
 #   persistentVolumeClaim:
 #     claimName: pv-hostpath
+
+    apk add --update supervisor && \

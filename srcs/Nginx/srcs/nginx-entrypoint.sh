@@ -1,5 +1,21 @@
 #!/bin/sh
 
+if [ ! -d "/var/www" ]; then
+	mkdir /var/www
+fi
+
+#create users for ssh and nginx
+	adduser -D -g 'www' www
+	adduser -D admin
+
+#setting up nginx webserver user permissions to directories
+	chown -R www:www /var/lib/nginx
+	chown -R www:www /var/www
+	echo "admin:password"|chpasswd
+
+# generate the host keys with the default key file path,
+	ssh-keygen -A
+
 if [ ! -f /etc/ssl/certs/key.key -o ! -f /etc/ssl/certs/cer.crt ]; then
 	# generate fresh ssl certificate and private key
 	mkdir -p /etc/ssl/certs/

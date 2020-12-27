@@ -21,5 +21,3 @@ if [ ! -d "/run/openrc/" ]; then
   mkdir -p /run/openrc/
   touch /run/openrc/softlevel
 fi
-rc-service sshd restart
-sshd -D
