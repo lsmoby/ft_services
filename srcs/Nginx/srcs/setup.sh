@@ -1,7 +1,7 @@
 #!/bin/sh
 
-if [ ! -d "/var/www" ]; then
-	mkdir /var/www
+if [ ! -d "/var/www/html" ]; then
+	mkdir -p var/www/html
 fi
 
 #create users for ssh and nginx
@@ -10,11 +10,9 @@ fi
 
 #setting up nginx webserver user permissions to directories
 	chown -R www:www /var/lib/nginx
-	chown -R www:www /var/www
+	chown -R www:www /var/www/html
 #setting up ssh server user and permissions
-	echo "admin:password"|chpasswd
-	RUN adduser -D admin \
-        && echo "%admin ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/admin
+	echo "root:toor"|chpasswd
 
 # generate the host keys with the default key file path,
 	ssh-keygen -A
@@ -35,4 +33,4 @@ if [ ! -d "/run/openrc/" ]; then
   mkdir -p /run/openrc/
   touch /run/openrc/softlevel
 fi
-sudo sh services.sh
+sh services.sh

@@ -1,3 +1,4 @@
+#!/bin/sh
 # ----------------------- install brew in goinfre -----------------------
 
 export MACHINE_STORAGE_PATH="/goinfre/$USER/.docker"
@@ -16,13 +17,6 @@ then
 
 fi
 
-# ----------------------- install docker -----------------------
-
-if ! command -v docker &> /dev/null
-then
-	brew install docker
-fi
-
 # ----------------------- install kubectl -----------------------
 
 if ! command -v kubectl &> /dev/null
@@ -36,14 +30,14 @@ if ! command -v minikube &> /dev/null
 then
 	brew install minikube
 	minikube addons enable dashboard
-	minikube addons enable metrics-server
 fi
 
 # ----------------------- starting minikube  ----------------------- 
 
 if ! command minikube status | grep Running &>/dev/null
 then
-	minikube start
+	minikube start --extra-config=apiserver.service-node-port-range=1-65535
+	set __SERVICES_IP__=$(minikube ip)
 fi
 
 
@@ -51,20 +45,15 @@ fi
 
 kubectl config use-context minikube
 eval $(minikube docker-env)
+	docker build -t mysql:ael-ghem ./srcs/Mysql/
+	docker build -t phpmyadmin:ael-ghem ./srcs/phpMyAdmin
+	docker build -t nginx:ael-ghem ./srcs/nginx/
 
-	docker image rm -f nginx:ael-ghem
-	docker build -t nginx:ael-ghem ./srcs/nginx/.
+# ----------------------- creating deployements and services ----------------------- 
 
-# ----------------------- creating deployements ----------------------- 
-	#	kubectl run nginx --image=nginx:ael-ghem --po0rt=8080 --image-pull-policy=Never
-		# or 
-	kubectl create -f ./srcs/nginx.yaml
-
-# ----------------------- creating services ----------------------- 
-		#kubectl expose deploy nginx-deployment --port 80 --type LoadBalancer
-		#or
-	kubectl create -f ./srcs/nginx-service.yaml
-
+	kubectl apply -f ./srcs/nginx.yaml
+	kubectl apply -f ./srcs/mysql.yaml
+	kubectl apply -f ./srcs/phpmyadmin.yaml
 
 #                This will deploy MetalLB to cluste
 if ! command kubectl get ClusterRole | grep metallb &> /dev/null
