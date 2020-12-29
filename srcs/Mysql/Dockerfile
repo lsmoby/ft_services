@@ -11,7 +11,7 @@ RUN set -eux && \
     mysql-client
 
 COPY srcs/setup.sh      /
-COPY srcs/mysqlconfig.cnf /etc/mysql/mysqlconfig.cnf
+COPY srcs/my.cnf /etc/mysql/my.cnf
 
 RUN chmod +x setup.sh
 EXPOSE 3306

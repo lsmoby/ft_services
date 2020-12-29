@@ -12,15 +12,16 @@ RUN set -eux && \
     wget \
     php-json    \
     php-mbstring \
-    php-session
+    php-session     \
+    php-mysqli
     #mbstring json session for phpmyadmin
 
-
 RUN wget https://files.phpmyadmin.net/phpMyAdmin/4.9.7/phpMyAdmin-4.9.7-all-languages.tar.gz \
-    && tar xvf phpMyAdmin-4.9.7-all-languages.tar.gz && mkdir /usr/share/phpmyadmin \
-	&& mv phpMyAdmin-4.9.7-all-languages/* /usr/share/phpmyadmin && ln -s /usr/share/phpmyadmin /var/www/html
-COPY srcs/setup.sh       /
+    && tar xvf phpMyAdmin-4.9.7-all-languages.tar.gz && mkdir -p /var/www/html \
+	&& mv phpMyAdmin-4.9.7-all-languages/* /var/www/html
+
+COPY srcs/setup.sh                      /
 COPY srcs/nginx.conf                    /etc/nginx/nginx.conf
-RUN chmod -x setup.sh
+RUN  chmod +x setup.sh
 EXPOSE 5000
 ENTRYPOINT ["/setup.sh"]

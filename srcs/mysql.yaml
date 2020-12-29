@@ -28,11 +28,10 @@ spec:
     spec:
       containers:
       - name: mysql
-        imagePullPolicy: Never
-        image: 'mysql:ael-ghem'
+        image: mysql:5.6
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: ""
+          value: "toor"
         - name:  MYSQL_USER
           value: "ael-ghem"
         - name: MYSQL_PASSWORD

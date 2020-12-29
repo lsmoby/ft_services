@@ -28,6 +28,6 @@ RUN wget https://files.phpmyadmin.net/phpMyAdmin/4.9.7/phpMyAdmin-4.9.7-all-lang
 	&& mv phpMyAdmin-4.9.7-all-languages/* /usr/share/phpmyadmin && ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
 COPY srcs/setup.sh       /
 COPY srcs/nginx.conf                    /etc/nginx/nginx.conf
-RUN chmod -x setup.sh
+RUN chmod +x setup.sh
 EXPOSE 5050
 ENTRYPOINT ["/setup.sh"]
