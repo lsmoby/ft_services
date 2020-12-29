@@ -23,7 +23,6 @@ spec:
   selector:
     matchLabels:
       app: phpmyadmin
-  replicas: 1 # tells deployment to run 1 pod replica
   template:
     metadata:
       labels:

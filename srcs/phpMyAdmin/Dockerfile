@@ -7,6 +7,7 @@ RUN apk update && apk upgrade
 RUN set -eux && \
     apk add --no-cache --update bash \
     openrc \
+    sed \
     nginx \
     php7-fpm \
     wget \
