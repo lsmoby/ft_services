@@ -54,11 +54,12 @@ EOF
 	  echo "GRANT ALL ON \`$MYSQL_DATABASE\`.* to '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" >> $tempfile
 	fi
 	fi
-
+	mkdir -p /app/mysql
 	# apply everything on the sql script file and delete it
 	/usr/bin/mysqld --user=root --bootstrap --verbose=0 < $tempfile
 	rm -f $tempfile
 fi
-rc-service mariadb start
+rc-service mariadb restart
+rc-service mariadb stop
 
 exec /usr/bin/mysqld --user=root --console

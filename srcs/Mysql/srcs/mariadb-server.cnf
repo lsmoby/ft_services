@@ -1,2 +1,6 @@
-bind-address = 0.0.0.0
-skip-networking
+[mysqld]
+user=root
+bind-address=0.0.0.0
+datadir=/app/mysql
+port=3306
+log-bin=/app/mysql/mysql-bin

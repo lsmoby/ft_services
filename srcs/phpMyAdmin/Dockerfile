@@ -15,8 +15,6 @@ RUN set -eux && \
     php-mbstring \
     php-session     \
     php-mysqli
-    #mbstring json session for phpmyadmin
-
 RUN wget https://files.phpmyadmin.net/phpMyAdmin/4.9.7/phpMyAdmin-4.9.7-all-languages.tar.gz \
     && tar xvf phpMyAdmin-4.9.7-all-languages.tar.gz && mkdir -p /var/www/html \
 	&& mv phpMyAdmin-4.9.7-all-languages/* /var/www/html

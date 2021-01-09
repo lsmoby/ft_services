@@ -24,6 +24,14 @@ then
 	brew install kubectl
 fi
 
+# ----------------------- install docker-machine -----------------------
+
+if ! command -v docker-machine &> /dev/null
+then
+	brew install docker-machine
+fi
+
+
 # -----------------------  install minikube -----------------------
 
 if ! command -v minikube &> /dev/null
@@ -45,6 +53,8 @@ fi
 
 kubectl config use-context minikube
 eval $(minikube docker-env)
+	docker pull metallb/controller:v0.9.5
+	docker pull metallb/speaker:v0.9.5
 	docker build -t mysql:ael-ghem ./srcs/Mysql/
 	docker build -t phpmyadmin:ael-ghem ./srcs/phpMyAdmin
 	docker build -t nginx:ael-ghem ./srcs/nginx/
