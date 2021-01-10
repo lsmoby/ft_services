@@ -28,6 +28,7 @@ fi
 
 if ! command -v docker-machine &> /dev/null
 then
+	brew install docker
 	brew install docker-machine
 fi
 
@@ -58,12 +59,14 @@ eval $(minikube docker-env)
 	docker build -t mysql:ael-ghem ./srcs/Mysql/
 	docker build -t phpmyadmin:ael-ghem ./srcs/phpMyAdmin
 	docker build -t nginx:ael-ghem ./srcs/nginx/
+	docker build -t wordpress:ael-ghem ./srcs/wordpress/.
 
 # ----------------------- creating deployements and services ----------------------- 
 
 	kubectl apply -f ./srcs/nginx.yaml
 	kubectl apply -f ./srcs/mysql.yaml
 	kubectl apply -f ./srcs/phpmyadmin.yaml
+	kubectl apply -f ./srcs/wordpress.yaml
 
 #                This will deploy MetalLB to cluste
 if ! command kubectl get ClusterRole | grep metallb &> /dev/null

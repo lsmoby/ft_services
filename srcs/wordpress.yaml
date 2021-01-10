@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress-service
+  annotations:
+    metallb.universe.tf/allow-shared-ip: shared
+spec: 
+  selector:
+      app: wordpress
+  type: LoadBalancer
+  ports:
+  - name: http
+    port: 5050
+    targetPort: 5050
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+spec:
+  selector:
+    matchLabels:
+      app: wordpress
+  template:
+    metadata:
+      labels:
+        app: wordpress
+    spec:
+      containers:
+      - name: wordpress
+        imagePullPolicy: Never
+        image: 'wordpress:ael-ghem'
+        env:
+        - name:  WORDPRESS_DB_USER
+          value: "ael-ghem"
+        - name: WORDPRESS_DB_PASSWORD
+          value: "password"
+        - name: WORDPRESS_DB_NAME
+          value: "wordpress"
+        ports:
+        - containerPort: 5050
