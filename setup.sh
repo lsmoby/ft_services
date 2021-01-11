@@ -39,14 +39,14 @@ if ! command -v minikube &> /dev/null
 then
 	brew install minikube
 	minikube addons enable dashboard
+	minikube addons enable metrics
 fi
 
 # ----------------------- starting minikube  ----------------------- 
 
 if ! command minikube status | grep Running &>/dev/null
 then
-	minikube start --extra-config=apiserver.service-node-port-range=1-65535
-	set __SERVICES_IP__=$(minikube ip)
+	minikube start
 fi
 
 

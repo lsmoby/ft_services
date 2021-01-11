@@ -31,6 +31,9 @@ spec:
       - name: mysql
         imagePullPolicy: Never
         image: 'mysql:ael-ghem'
+        volumeMounts:
+        - mountPath: "/var/lib/mysql"
+          name: pv-storage
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: ""
@@ -42,6 +45,11 @@ spec:
           value: "wordpress"
         ports:
         - containerPort: 3306
+      volumes:
+      - name: pv-storage
+        persistentVolumeClaim:
+          claimName: task-pv-claim
+
 
 
 
