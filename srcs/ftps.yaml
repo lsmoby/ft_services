@@ -1,0 +1,84 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ftps-service
+  annotations:
+    metallb.universe.tf/allow-shared-ip: shared
+spec: 
+  selector:
+      app: ftps
+  type: LoadBalancer
+  ports:
+  - name: ftps
+    port: 21
+    targetPort: 21
+  - name: ftps-passiv
+    port: 30000
+    targetPort: 30000
+  - name: ftps-passiv1
+    port: 30001
+    targetPort: 30001
+  - name: ftps-passiv2
+    port: 30002
+    targetPort: 30002
+  - name: ftps-passiv3
+    port: 30003
+    targetPort: 30003
+  - name: ftps-passiv4
+    port: 30004
+    targetPort: 30004
+  - name: ftps-passiv5
+    port: 30005
+    targetPort: 30005
+  - name: ftps-passiv6
+    port: 30006
+    targetPort: 30006
+  - name: ftps-passiv7
+    port: 30007
+    targetPort: 30007
+  - name: ftps-passiv8
+    port: 30008
+    targetPort: 30008
+  - name: ftps-passiv9
+    port: 30009
+    targetPort: 30009
+  
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ftps
+spec:
+  selector:
+    matchLabels:
+      app: ftps
+  replicas: 1 # tells deployment to run 1 pod replica
+  template:
+    metadata:
+      labels:
+        app: ftps
+    spec:
+      containers:
+      - name: ftps
+        imagePullPolicy: Never
+        image: 'ftps:ael-ghem'
+        env:
+        - name: PASV_ADDRESS
+          value: "192.168.99.110"
+        - name:  FTP_USER
+          value: "ael-ghem"
+        - name: FTP_PASS
+          value: "password"
+        ports:
+        - containerPort: 21
+        - containerPort: 30000
+        - containerPort: 30001
+        - containerPort: 30002
+        - containerPort: 30003
+        - containerPort: 30004
+        - containerPort: 30005
+        - containerPort: 30006
+        - containerPort: 30007
+        - containerPort: 30008
+        - containerPort: 30009

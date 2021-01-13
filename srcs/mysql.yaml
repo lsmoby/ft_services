@@ -13,6 +13,21 @@ spec:
 
 ---
 
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+  labels:
+    app: mysql
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -31,9 +46,6 @@ spec:
       - name: mysql
         imagePullPolicy: Never
         image: 'mysql:ael-ghem'
-        volumeMounts:
-        - mountPath: "/var/lib/mysql"
-          name: pv-storage
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: ""
@@ -45,11 +57,11 @@ spec:
           value: "wordpress"
         ports:
         - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: mysql-pv
+          mountPath: /var/lib/mysql
       volumes:
-      - name: pv-storage
+      - name: mysql-pv
         persistentVolumeClaim:
-          claimName: task-pv-claim
-
-
-
-
+          claimName: mysql-pvc

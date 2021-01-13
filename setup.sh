@@ -1,4 +1,14 @@
 #!/bin/sh
+
+
+echo "\033[0;34m      :::::::::: :::::::::::           ::::::::  :::::::::: :::::::::  :::     ::: ::::::::::: ::::::::  :::::::::: :::::::: 
+     :+:            :+:              :+:    :+: :+:        :+:    :+: :+:     :+:     :+:    :+:    :+: :+:       :+:    :+: 
+    +:+            +:+              +:+        +:+        +:+    +:+ +:+     +:+     +:+    +:+        +:+       +:+         
+   :#::+::#       +#+              +#++:++#++ +#++:++#   +#++:++#:  +#+     +:+     +#+    +#+        +#++:++#  +#++:++#++   
+  +#+            +#+                     +#+ +#+        +#+    +#+  +#+   +#+      +#+    +#+        +#+              +#+    
+ #+#            #+#              #+#    #+# #+#        #+#    #+#   #+#+#+#       #+#    #+#    #+# #+#       #+#    #+#     
+###            ###    ########## ########  ########## ###    ###     ###     ########### ########  ########## ########\033[0m"
+
 # ----------------------- install brew in goinfre -----------------------
 
 export MACHINE_STORAGE_PATH="/goinfre/$USER/.docker"
@@ -14,13 +24,13 @@ then
 	echo	"export MACHINE_STORAGE_PATH=\"/goinfre/$USER/.docker\""	>> ~/.zshrc
 	echo	"export MINIKUBE_HOME=\"/goinfre/$USER/.minikube\""	>> ~/.zshrc
 	echo	"export MACHINE_STORAGE_PATH=\"/goinfre/$USER/.docker\""	>> ~/.zshrc
-
 fi
 
 # ----------------------- install kubectl -----------------------
 
 if ! command -v kubectl &> /dev/null
 then
+	echo"\033[0;31m installing kubectl... \033[0m"
 	brew install kubectl
 fi
 
@@ -28,45 +38,46 @@ fi
 
 if ! command -v docker-machine &> /dev/null
 then
+	echo"\033[0;31m installing docker and docker-machine... \033[0m"
 	brew install docker
 	brew install docker-machine
 fi
 
 
 # -----------------------  install minikube -----------------------
-
+	
 if ! command -v minikube &> /dev/null
 then
+	echo "\033[0;31m installing minikube... \033[0m"
 	brew install minikube
-	minikube addons enable dashboard
-	minikube addons enable metrics
 fi
 
 # ----------------------- starting minikube  ----------------------- 
-
+	echo "\033[0;31m starting minikube... \033[0m"
 if ! command minikube status | grep Running &>/dev/null
 then
 	minikube start
+	minikube addons enable dashboard
+	minikube addons enable metrics-server
 fi
 
 
-# ----------------------- building images -----------------------
+# ----------------------- building images, creating deployments and services -----------------------
 
+	echo "\033[0;31m building images, creating deployments and services \033[0m"
 kubectl config use-context minikube
 eval $(minikube docker-env)
 	docker pull metallb/controller:v0.9.5
 	docker pull metallb/speaker:v0.9.5
-	docker build -t mysql:ael-ghem ./srcs/Mysql/
-	docker build -t phpmyadmin:ael-ghem ./srcs/phpMyAdmin
-	docker build -t nginx:ael-ghem ./srcs/nginx/
-	docker build -t wordpress:ael-ghem ./srcs/wordpress/.
+
+declare -a images=("mysql" "phpmyadmin" "wordpress" "nginx" "ftps")
+for image in "${images[@]}"
+do
+   docker build -t $image':ael-ghem' ./srcs/$image/
+   kubectl apply -f ./srcs/$image'.yaml'
+done
 
 # ----------------------- creating deployements and services ----------------------- 
-
-	kubectl apply -f ./srcs/nginx.yaml
-	kubectl apply -f ./srcs/mysql.yaml
-	kubectl apply -f ./srcs/phpmyadmin.yaml
-	kubectl apply -f ./srcs/wordpress.yaml
 
 #                This will deploy MetalLB to cluste
 if ! command kubectl get ClusterRole | grep metallb &> /dev/null
