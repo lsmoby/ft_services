@@ -10,7 +10,9 @@ RUN set -x && \
     apk add --update openrc && \
     apk add --update openssl && \
     apk add --update openssh && \
-    rm  -rf /tmp/* /var/cache/apk/*
+    wget https://dl.influxdata.com/telegraf/releases/telegraf-1.17.0_linux_amd64.tar.gz && \
+    tar xf telegraf-1.17.0_linux_amd64.tar.gz -C / && \
+    rm  -rf /var/cache/apk/*
 
 RUN rm -f /etc/nginx/nginx.conf
 COPY srcs/services.sh                   /
