@@ -1,11 +1,15 @@
-FROM alpine:latest
+FROM alpine:3.12
 
 #update and upgrade
 RUN apk update && apk upgrade
 #install services
 RUN set -eux && \
-    apk add influxdb
+    apk add influxdb \
+    libc6-compat    \
+    bash
 
+COPY srcs/telegraf.sh /
+COPY srcs/telegraf.conf /etc/telegraf/
 COPY srcs/setup.sh /
-RUN sh setup.sh
-ENTRYPOINT  [ "influxd" ]
+RUN  chmod +x setup.sh
+ENTRYPOINT  [ "/setup.sh" ]
