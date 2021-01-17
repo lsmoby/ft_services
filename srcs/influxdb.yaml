@@ -7,7 +7,6 @@ spec:
       app: influxdb
   type: ClusterIP
   clusterIP: 10.104.189.162
-  externalTrafficPolicy: Cluster
   ports:
   - name: influxdb
     port: 8086
@@ -61,7 +60,12 @@ spec:
         volumeMounts:
         - name: influxdb-pv
           mountPath: /var/lib/influxdb
+        - name: dockersock
+          mountPath: "/var/run/docker.sock"
       volumes:
       - name: influxdb-pv
         persistentVolumeClaim:
           claimName: influxdb-pvc
+      - name: dockersock
+        hostPath:
+          path: /var/run/docker.sock

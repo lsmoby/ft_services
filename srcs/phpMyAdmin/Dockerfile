@@ -15,7 +15,6 @@ RUN set -eux && \
     php-mbstring \
     php-session     \
     php-mysqli  \
-    libc6-compat    \
     bash
 
 RUN wget https://files.phpmyadmin.net/phpMyAdmin/4.9.7/phpMyAdmin-4.9.7-all-languages.tar.gz \
@@ -24,8 +23,6 @@ RUN wget https://files.phpmyadmin.net/phpMyAdmin/4.9.7/phpMyAdmin-4.9.7-all-lang
 
 COPY srcs/setup.sh                      /
 COPY srcs/nginx.conf                    /etc/nginx/nginx.conf
-COPY srcs/telegraf.conf /etc/telegraf/
-COPY srcs/telegraf.sh /
 RUN  chmod +x setup.sh
 EXPOSE 5000
 ENTRYPOINT ["/setup.sh"]

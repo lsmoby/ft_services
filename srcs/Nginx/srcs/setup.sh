@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ ! -d "/var/www/html" ]; then
 	mkdir -p var/www/html

@@ -11,6 +11,6 @@ RUN set -eux && \
 COPY srcs/telegraf.sh /
 COPY srcs/telegraf.conf /etc/telegraf/
 COPY srcs/setup.sh /
-RUN  chmod +x setup.sh
+RUN  chmod +x setup.sh && mkdir /liveness && touch /liveness/live
 EXPOSE 8086
 ENTRYPOINT  [ "/setup.sh" ]

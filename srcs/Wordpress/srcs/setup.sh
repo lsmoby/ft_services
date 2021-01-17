@@ -24,15 +24,13 @@ set_config 'SECURE_AUTH_SALT' "$(head -c1m /dev/urandom | sha1sum | cut -d' ' -f
 set_config 'LOGGED_IN_SALT' "$(head -c1m /dev/urandom | sha1sum | cut -d' ' -f1)"
 set_config 'NONCE_SALT' "$(head -c1m /dev/urandom | sha1sum | cut -d' ' -f1)"
 
-sh /telegraf.sh
-(nginx -g "daemon off;" &) && ( /telegraf-1.17.0/usr/bin/telegraf --config /etc/telegraf/telegraf.conf &)
+(nginx -g "daemon off;" &) 
 mkdir /liveness
 touch /liveness/live
 while true;	do
-ps > /liveness/processes && cat /liveness/processes | grep "/telegraf-1.17.0/usr/bin/telegraf --config /etc/telegraf/telegraf.conf" ; [ $? -eq 1 ] && touch /liveness/teleg_
-cat /liveness/processes | grep "nginx"; [ $? -eq 1 ] && touch /liveness/nginx_
+ps > /liveness/processes && cat /liveness/processes | grep "nginx"; [ $? -eq 1 ] && touch /liveness/nginx_
 cat /liveness/processes | grep "php"; [ $? -eq 1 ] && touch /liveness/php_
-if [ ! -f /liveness/teleg_ -o ! -f /liveness/nginx_ -o ! -f /liveness/php_]; then
+if [ ! -f /liveness/nginx_ -o ! -f /liveness/php_]; then
     rm /liveness/live
 fi
 sleep 5

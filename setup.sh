@@ -65,8 +65,8 @@ fi
 # ----------------------- building images, creating deployments and services -----------------------
 
 	echo "\033[0;31m building images, creating deployments and services \033[0m"
-kubectl config use-context minikube
-eval $(minikube docker-env)
+	kubectl config use-context minikube
+	eval $(minikube docker-env)
 	docker pull metallb/controller:v0.9.5
 	docker pull metallb/speaker:v0.9.5
 

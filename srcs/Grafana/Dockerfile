@@ -10,9 +10,5 @@ RUN set -eux && cd /tmp && \
     apk del --purge wget && \
     rm -rf /tmp/* /var/cache/apk/*
 
-COPY srcs/setup.sh /
-COPY srcs/telegraf.conf /etc/telegraf/
-COPY srcs/telegraf.sh /
-RUN chmod +x setup.sh
 EXPOSE 3000
-ENTRYPOINT  [ "/setup.sh" ]
+ENTRYPOINT  [ "/opt/grafana/bin/grafana-server", "-homepath", "/opt/grafana" ]
