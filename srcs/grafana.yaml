@@ -33,6 +33,13 @@ spec:
       - name: grafana
         imagePullPolicy: Never
         image: 'grafana:ael-ghem'
+        livenessProbe:
+          exec:
+            command:
+            - cat
+            - /liveness/live
+          initialDelaySeconds: 10
+          periodSeconds: 5
         ports:
         - containerPort: 3000
 

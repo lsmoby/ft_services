@@ -39,6 +39,13 @@ spec:
       - name: nginx
         imagePullPolicy: Never
         image: 'nginx:ael-ghem'
+        livenessProbe:
+          exec:
+            command:
+            - cat
+            - /liveness/live
+          initialDelaySeconds: 10
+          periodSeconds: 5
         ports:
         - containerPort: 80
         - containerPort: 443

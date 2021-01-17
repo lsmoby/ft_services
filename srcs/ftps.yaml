@@ -63,6 +63,13 @@ spec:
       - name: ftps
         imagePullPolicy: Never
         image: 'ftps:ael-ghem'
+        livenessProbe:
+          exec:
+            command:
+            - cat
+            - /liveness/live
+          initialDelaySeconds: 10
+          periodSeconds: 5
         env:
         - name: PASV_ADDRESS
           value: "192.168.99.110"

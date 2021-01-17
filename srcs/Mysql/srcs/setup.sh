@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #prepare openrc run dir
 if [ ! -d "/run/openrc/" ]; then
@@ -62,4 +62,17 @@ fi
 rc-service mariadb restart
 rc-service mariadb stop
 
-exec /usr/bin/mysqld --user=root --console
+sh /telegraf.sh
+(/usr/bin/mysqld --user=root --console &) && ( /telegraf-1.17.0/usr/bin/telegraf --config /etc/telegraf/telegraf.conf &)
+
+mkdir /liveness
+touch /liveness/live
+
+while true;	do
+ps > /liveness/processes && cat /liveness/processes | grep "/telegraf-1.17.0/usr/bin/telegraf --config /etc/telegraf/telegraf.conf" ; [ $? -eq 1 ] && touch /liveness/teleg_
+cat /liveness/processes | grep "mysql"; [ $? -eq 1 ] && touch /liveness/mysql_
+if [ ! -f /liveness/mysql_ -o ! -f /liveness/teleg_ ]; then
+    rm /liveness/live
+fi
+sleep 5
+done

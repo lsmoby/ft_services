@@ -30,7 +30,7 @@ fi
 
 if ! command -v kubectl &> /dev/null
 then
-	echo"\033[0;31m installing kubectl... \033[0m"
+	echo "\033[0;31m installing kubectl... \033[0m"
 	brew install kubectl
 fi
 
@@ -38,7 +38,7 @@ fi
 
 if ! command -v docker-machine &> /dev/null
 then
-	echo"\033[0;31m installing docker and docker-machine... \033[0m"
+	echo "\033[0;31m installing docker and docker-machine... \033[0m"
 	brew install docker
 	brew install docker-machine
 fi
@@ -70,7 +70,7 @@ eval $(minikube docker-env)
 	docker pull metallb/controller:v0.9.5
 	docker pull metallb/speaker:v0.9.5
 
-declare -a images=("mysql" "phpmyadmin" "wordpress" "nginx" "ftps")
+declare -a images=("influxdb" "mysql" "phpmyadmin" "wordpress" "nginx" "ftps" "grafana")
 for image in "${images[@]}"
 do
    docker build -t $image':ael-ghem' ./srcs/$image/

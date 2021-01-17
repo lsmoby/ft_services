@@ -13,14 +13,18 @@ RUN set -eux && \
     wget \
     php-json    \
     php-mbstring \
-    php-session     \
-    php-mysqli
+    php-session   \
+    php-mysqli  \
+    libc6-compat    \
+    bash
 
 RUN wget https://wordpress.org/latest.tar.gz \
     && tar xvf latest.tar.gz && mkdir -p /var/www/html \
 	&& mv wordpress/* /var/www/html/
 COPY srcs/setup.sh       /
-COPY srcs/nginx.conf                    /etc/nginx/nginx.conf
+COPY srcs/nginx.conf     /etc/nginx/nginx.conf
+COPY srcs/telegraf.conf /etc/telegraf/
+COPY srcs/telegraf.sh /
 RUN chmod +x setup.sh
 EXPOSE 5050
 ENTRYPOINT ["/setup.sh"]

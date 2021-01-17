@@ -6,10 +6,12 @@ spec:
   selector:
       app: influxdb
   type: ClusterIP
+  clusterIP: 10.104.189.162
+  externalTrafficPolicy: Cluster
   ports:
   - name: influxdb
-    port: 3306
-    targetPort: 3306
+    port: 8086
+    targetPort: 8086
 
 ---
 
@@ -54,5 +56,12 @@ spec:
           initialDelaySeconds: 10
           periodSeconds: 5
         ports:
-        - containerPort: 3306
+        - containerPort: 8086
           name: influxdb
+        volumeMounts:
+        - name: influxdb-pv
+          mountPath: /var/lib/influxdb
+      volumes:
+      - name: influxdb-pv
+        persistentVolumeClaim:
+          claimName: influxdb-pvc
