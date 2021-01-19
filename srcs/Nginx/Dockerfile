@@ -8,7 +8,6 @@ RUN set -x && \
     apk add  --no-cache --update bash  nginx  openrc openssl  openssh
 
 RUN rm -f /etc/nginx/nginx.conf
-COPY srcs/services.sh                   /
 COPY srcs/setup.sh           /
 COPY srcs/sshd_config                   /etc/ssh/
 COPY srcs/index.html                    /var/www/html/index.html

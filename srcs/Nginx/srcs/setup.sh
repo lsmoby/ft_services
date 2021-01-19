@@ -33,4 +33,19 @@ if [ ! -d "/run/openrc/" ]; then
   mkdir -p /run/openrc/
   touch /run/openrc/softlevel
 fi
-sh services.sh
+
+rc-update add sshd
+nginx -t
+rc-service nginx start
+(/usr/sbin/sshd -D &)  && (nginx -g "daemon off;" &)
+while true;	do
+sleep 5
+ret1="$(ps | grep sshd | grep -vc grep)"
+ret2="$(ps | grep nginx | grep -vc grep)"
+if [ $ret1 -eq 0 -o $ret2 -eq 0 ]; then
+    echo "pod is unhealthy"
+    break ;
+else
+    echo "pod is healthy"
+fi
+done

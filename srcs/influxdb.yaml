@@ -37,7 +37,7 @@ spec:
   selector:
     matchLabels:
       app: influxdb
-  replicas: 1 # tells deployment to run 1 pod replica
+  replicas: 0 # tells deployment to run 1 pod replica
   template:
     metadata:
       labels:
@@ -47,13 +47,6 @@ spec:
       - name: influxdb
         imagePullPolicy: Never
         image: 'influxdb:ael-ghem'
-        livenessProbe:
-          exec:
-            command:
-            - cat
-            - /liveness/live
-          initialDelaySeconds: 10
-          periodSeconds: 5
         ports:
         - containerPort: 8086
           name: influxdb

@@ -36,7 +36,6 @@ spec:
   selector:
     matchLabels:
       app: mysql
-  replicas: 1 # tells deployment to run 1 pod replica
   template:
     metadata:
       labels:
@@ -46,13 +45,6 @@ spec:
       - name: mysql
         imagePullPolicy: Never
         image: 'mysql:ael-ghem'
-        livenessProbe:
-          exec:
-            command:
-            - cat
-            - /liveness/live
-          initialDelaySeconds: 10
-          periodSeconds: 5
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: ""

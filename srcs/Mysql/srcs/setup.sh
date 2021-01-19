@@ -7,6 +7,8 @@ if [ ! -d "/run/openrc/" ]; then
   openrc
 fi
 
+chown -R mysql: /var/lib/mysql
+
 if [ ! -d "/run/mysqld" ]; then
   mkdir -p /run/mysqld
 fi
@@ -63,13 +65,14 @@ rc-service mariadb restart
 rc-service mariadb stop
 
 (/usr/bin/mysqld --user=root --console &)
-mkdir /liveness
-touch /liveness/live
 
 while true;	do
-ps > /liveness/processes && cat /liveness/processes | grep "mysql"; [ $? -eq 1 ] && touch /liveness/mysql_
-if [ ! -f /liveness/mysql_ ]; then
-    rm /liveness/live
-fi
 sleep 5
+ret1="$(ps | grep mysqld | grep -vc grep)"
+if [ $ret1 -eq 0 ]; then
+    echo "pod is unhealthy"
+    break ;
+else
+    echo "pod is healthy"
+fi
 done

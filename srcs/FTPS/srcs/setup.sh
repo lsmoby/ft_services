@@ -14,13 +14,13 @@ fi
 
 (pure-ftpd -j -Y 2 -p 30000:30009 -P $PASV_ADDRESS &)
 
-mkdir /liveness
-touch /liveness/live
-
 while true;	do
-ps > /liveness/processes && cat /liveness/processes | grep "pure-ftpd"; [ $? -eq 1 ] && touch /liveness/pure_
-if [ ! -f /liveness/pure_ ]; then
-    rm /liveness/live
-fi
 sleep 5
+ret1="$(ps | grep pure-ftpd | grep -vc grep)"
+if [ $ret1 -eq 0 ]; then
+    echo "pod is unhealthy"
+    break ;
+else
+    echo "pod is healthy"
+fi
 done

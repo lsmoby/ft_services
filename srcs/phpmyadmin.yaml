@@ -32,12 +32,5 @@ spec:
       - name: phpmyadmin
         imagePullPolicy: Never
         image: 'phpmyadmin:ael-ghem'
-        livenessProbe:
-          exec:
-            command:
-            - cat
-            - /liveness/live
-          initialDelaySeconds: 10
-          periodSeconds: 5
         ports:
         - containerPort: 5000

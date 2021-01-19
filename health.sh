@@ -1,1 +1,1 @@
-if ps | grep lalkaoja | grep -vc grep ; then exit 0 ; else exit 1 ; fi
+ then exit 0 ; else exit 1 ; fi

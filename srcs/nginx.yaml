@@ -29,7 +29,6 @@ spec:
   selector:
     matchLabels:
       app: nginx
-  replicas: 1 # tells deployment to run 1 pod replica
   template:
     metadata:
       labels:
@@ -39,13 +38,6 @@ spec:
       - name: nginx
         imagePullPolicy: Never
         image: 'nginx:ael-ghem'
-        livenessProbe:
-          exec:
-            command:
-            - cat
-            - /liveness/live
-          initialDelaySeconds: 10
-          periodSeconds: 5
         ports:
         - containerPort: 80
         - containerPort: 443
