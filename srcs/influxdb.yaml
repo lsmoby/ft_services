@@ -37,7 +37,6 @@ spec:
   selector:
     matchLabels:
       app: influxdb
-  replicas: 0 # tells deployment to run 1 pod replica
   template:
     metadata:
       labels:

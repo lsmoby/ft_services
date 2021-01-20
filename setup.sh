@@ -91,3 +91,20 @@ then
 		kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
 	fi
 fi
+
+#-----------nginx----------
+#ssh	root@192.168.99.110
+
+#ssh password:	toor
+
+#-----------ftps-----------
+#user   	ael-ghem
+#password	password
+
+#-----------mysql----------
+#user   	ael-ghem
+#password	password
+
+#-----------grafana--------
+#user		admin
+#password	admin

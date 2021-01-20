@@ -1,6 +1,6 @@
 [mysqld]
 user=root
 bind-address=0.0.0.0
-datadir=/app/mysql
+datadir=/app/data
 port=3306
-log-bin=/app/mysql/mysql-bin
+log-bin=/app/data/mysql-bin

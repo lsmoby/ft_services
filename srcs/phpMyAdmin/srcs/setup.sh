@@ -13,7 +13,7 @@ echo "\$cfg['TempDir'] = '/var/www/html/tmp';" >> /var/www/html/config.inc.php
 
 rc-service php-fpm7 start
 rc-service nginx start
-nginx &
+(nginx -g "daemon off;" &)
 
 while true;	do
 sleep 5

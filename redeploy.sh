@@ -3,7 +3,7 @@ kubectl delete svc --all
 
 eval $(minikube docker-env)
 
-declare -a images=("influxdb" "mysql" "phpmyadmin" "wordpress" "nginx" "ftps" "grafana")
+declare -a images=("mysql" "phpmyadmin" "wordpress" "nginx" "ftps" "influxdb" "grafana")
 for image in "${images[@]}"
 do
    docker build -t $image':ael-ghem' ./srcs/$image/

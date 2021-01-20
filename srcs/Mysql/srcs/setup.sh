@@ -7,7 +7,7 @@ if [ ! -d "/run/openrc/" ]; then
   openrc
 fi
 
-chown -R mysql: /var/lib/mysql
+chown -R mysql: /app/data
 
 if [ ! -d "/run/mysqld" ]; then
   mkdir -p /run/mysqld
