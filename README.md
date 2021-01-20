@@ -13,18 +13,18 @@
 ## usage
 
 ####   -----------nginx----------
-#ssh	root@192.168.99.110
+ssh	root@192.168.99.110
 
-#ssh password:	toor
+ssh password:	toor
 
 ####   -----------ftps-----------
-#user   	ael-ghem
-#password	password
+user   	ael-ghem
+password	password
 
 ####   -----------mysql----------
-#user   	ael-ghem
-#password	password
+user   	ael-ghem
+password	password
 
 ####   -----------grafana--------
-#user		admin
-#password	admin
+user		admin
+password	admin
