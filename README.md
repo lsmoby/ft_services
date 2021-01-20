@@ -12,21 +12,19 @@
             all of the images used are built from scratch using alpine linux base image.
 ## usage
 
-#   -----------nginx----------
+####   -----------nginx----------
 #ssh	root@192.168.99.110
 
 #ssh password:	toor
 
-#   -----------ftps-----------
+####   -----------ftps-----------
 #user   	ael-ghem
 #password	password
 
-#   -----------mysql----------
+####   -----------mysql----------
 #user   	ael-ghem
 #password	password
 
-#   -----------grafana--------
+####   -----------grafana--------
 #user		admin
 #password	admin
-
-##
