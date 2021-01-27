@@ -11,14 +11,14 @@ echo "\033[0;34m      :::::::::: :::::::::::           ::::::::  :::::::::: ::::
 
 # ----------------------- install brew in goinfre -----------------------
 
-export MACHINE_STORAGE_PATH="/goinfre/$USER/.docker"
-export MINIKUBE_HOME="/goinfre/$USER/.minikube"
-
 
 if ! command -v brew &> /dev/null
 then
   export HOME_BREW="/goinfre/$USER"
-  rm -rf $HOME/.brew && rm -rf $HOME_BREW/.brew && git clone --depth=1 https://github.com/Homebrew/brew $HOME_BREW/.brew && export PATH=$HOME_BREW/.brew/bin:$PATH && brew update && echo "export PATH=$HOME_BREW/.brew/bin:$PATH" >> ~/.zshrc && echo "export MINIKUBE_HOME=\"/goinfre/$USER/.minikube\"" >> ~/.zshrc  && echo export "MACHINE_STORAGE_PATH=\"/goinfre/$USER/.docker\"" >> ~/.zshrc
+  rm -rf $HOME/.brew && rm -rf $HOME_BREW/.brew && git clone --depth=1 https://github.com/Homebrew/brew $HOME_BREW/.brew && export PATH=$HOME_BREW/.brew/bin:$PATH && brew update
+	echo	"export PATH=$HOME_BREW/.brew/bin:$PATH" >> ~/.zshrc
+	echo	"export MINIKUBE_HOME=\"/goinfre/$USER/.minikube\"" >> ~/.zshrc
+	echo	"export MACHINE_STORAGE_PATH=\"/goinfre/$USER/.docker\"" >> ~/.zshrc
 	echo	"export HOME_BREW=\"/goinfre/$USER\""	>> ~/.zshrc
 	echo	"export PATH=$HOME_BREW/.brew/bin:$PATH"
 	echo	"export MACHINE_STORAGE_PATH=\"/goinfre/$USER/.docker\""	>> ~/.zshrc
@@ -36,11 +36,10 @@ fi
 
 # ----------------------- install docker-machine -----------------------
 
-if ! command -v docker-machine &> /dev/null
+if ! command -v docker &> /dev/null
 then
-	echo "\033[0;31m installing docker and docker-machine... \033[0m"
+	echo "\033[0;31m installing docker... \033[0m"
 	brew install docker
-	brew install docker-machine
 fi
 
 
@@ -56,6 +55,7 @@ fi
 	echo "\033[0;31m starting minikube... \033[0m"
 if ! command minikube status | grep Running &>/dev/null
 then
+	minikube config set driver virtualbox
 	minikube start
 	minikube addons enable dashboard
 	minikube addons enable metrics-server
@@ -94,17 +94,13 @@ fi
 
 #-----------nginx----------
 #ssh	root@192.168.99.110
-
 #ssh password:	toor
-
 #-----------ftps-----------
 #user   	ael-ghem
 #password	password
-
 #-----------mysql----------
 #user   	ael-ghem
 #password	password
-
 #-----------grafana--------
 #user		admin
 #password	admin

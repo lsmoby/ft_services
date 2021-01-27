@@ -6,7 +6,7 @@ while true;	do
 sleep 5
 ret1="$(ps | grep telegraf | grep -vc grep)"
 ret2="$(ps | grep influxd | grep -vc grep)"
-if [ $ret1 -eq 0 -o ret2 -eq 0 ]; then
+if [ $ret1 -eq 0 -o $ret2 -eq 0 ]; then
     echo "pod is unhealthy"
     break ;
 else
