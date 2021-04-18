@@ -3,9 +3,10 @@ FROM alpine:3.12
 #update and upgrade
 RUN apk update && apk upgrade
 #install services
-RUN set -eux && \
-    apk add  --no-cache --update influxdb \
-    libc6-compat    \
+RUN set -eux &&                     \
+    apk add  --no-cache --update    \
+    influxdb                        \
+    libc6-compat                    \
     bash
 
 COPY srcs/telegraf.sh /

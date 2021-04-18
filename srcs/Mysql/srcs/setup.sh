@@ -59,7 +59,9 @@ EOF
 	mkdir -p /app/mysql
 	# apply everything on the sql script file and delete it
 	/usr/bin/mysqld --user=root --bootstrap --verbose=0 < $tempfile
+	/usr/bin/mysqld --user=root --bootstrap --verbose=0 $MYSQL_DATABASE < wordpress.sql
 	rm -f $tempfile
+	rm -f /wordpress.sql
 fi
 rc-service mariadb restart
 rc-service mariadb stop

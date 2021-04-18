@@ -1,14 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>srbay dyal chbka</title>
-</head>
+<title>FT_SERVICES</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {font-family: "Lato", sans-serif}
+.mySlides {display: none}
+</style>
 <body>
-    <h1>srbay tayjrri</h1>
-    <a href="/wordpress">wordpress with redirection</a>
-    <a href="/phpmyadmin">phpmyadmin with reverse proxy</a>
+
+
+<!-- Page content -->
+<div class="w3-content" style="max-width:2000px;margin-top:46px">
+
+
+  <!-- The Band Section -->
+  <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:1000px" id="band">
+    <h2 class="w3-wide">FT Services</h2>
+    <p class="w3-opacity"><i>This is a System Administration and Networking project.</i></p>
+    <p style="text-align:center;">
+                              <b>Introduction:</b> <br>
+                          The project consists of setting up an infrastructure of different services,
+                          using Kubernetes, this is a set up to a multi-service cluster.</br></br>
+                          <b>Services:</b></br>
+                          mysql-server with phpmyadmin control panel, ftps-server,
+                          ssh server, nginx server, wordpress ready.</br> <br>
+
+                          <b>cluster monitoring:</b> <br> 
+                          InfluxDB, Telegraf, Grafana all of the deployments are using the same address ip,
+                          which is managed by Loadbalancer (MetalLB).
+                          <br>
+                          All of the images used are built from scratch using alpine linux base image.</p>
+    <div class="w3-row w3-padding-32">
+      <div class="w3-">
+        <button>  <a href="/wordpress">Wordpress with redirection</a> </button>
+      </div>
+      </div>
+      <div class="w3-">
+        <button> <a href="/phpmyadmin">phpmyadmin with reverse proxy</a> </button>
+      </div>
+    </div>
+  </div>
+  
+<!-- End Page Content -->
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
+  <p class="w3-medium">Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+</footer>
+
 </body>
 </html>
-

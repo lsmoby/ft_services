@@ -20,7 +20,6 @@ then
 	echo	"export MINIKUBE_HOME=\"/goinfre/$USER/.minikube\"" >> ~/.zshrc
 	echo	"export MACHINE_STORAGE_PATH=\"/goinfre/$USER/.docker\"" >> ~/.zshrc
 	echo	"export HOME_BREW=\"/goinfre/$USER\""	>> ~/.zshrc
-	echo	"export PATH=$HOME_BREW/.brew/bin:$PATH"
 	echo	"export MACHINE_STORAGE_PATH=\"/goinfre/$USER/.docker\""	>> ~/.zshrc
 	echo	"export MINIKUBE_HOME=\"/goinfre/$USER/.minikube\""	>> ~/.zshrc
 	echo	"export MACHINE_STORAGE_PATH=\"/goinfre/$USER/.docker\""	>> ~/.zshrc
@@ -55,8 +54,7 @@ fi
 	echo "\033[0;31m starting minikube... \033[0m"
 if ! command minikube status | grep Running &>/dev/null
 then
-	minikube config set driver virtualbox
-	minikube start
+	minikube start --driver=virtualbox
 	minikube addons enable dashboard
 	minikube addons enable metrics-server
 fi
@@ -95,7 +93,7 @@ fi
 #-----------nginx----------
 #ssh	root@192.168.99.110
 #ssh password:	toor
-#-----------ftps-----------
+#-----------ftps-pma-------
 #user   	ael-ghem
 #password	password
 #-----------mysql----------
@@ -104,3 +102,6 @@ fi
 #-----------grafana--------
 #user		admin
 #password	admin
+#-----------WP-------------
+#user		admin
+#password	Password

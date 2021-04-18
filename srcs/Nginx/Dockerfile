@@ -4,8 +4,13 @@ FROM alpine:3.12
 RUN apk update && apk upgrade
 
 #install services
-RUN set -x && \
-    apk add  --no-cache --update bash  nginx  openrc openssl  openssh
+RUN set -x &&                       \
+    apk add  --no-cache --update    \
+    bash                            \
+    nginx                           \
+    openrc                          \
+    openssl                         \
+    openssh
 
 RUN rm -f /etc/nginx/nginx.conf
 COPY srcs/setup.sh           /
